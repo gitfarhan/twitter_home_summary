@@ -41,5 +41,3 @@ def get_top_tweets(min_freq=1):
     clean_df['date'] = time
     clean_df['hour'] = now.hour
     return clean_df
-
-print(get_top_tweets())

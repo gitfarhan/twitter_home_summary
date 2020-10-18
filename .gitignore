@@ -2,3 +2,4 @@ venv/
 example.py
 text.txt
 .env
+.idea/
