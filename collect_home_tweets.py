@@ -18,11 +18,12 @@ auth.set_access_token(access_token, access_token_secret)
 
 def get_top_tweets(min_freq=1):
     api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+    me = api.me().screen_name
     public_tweets = api.home_timeline(count=20)
     users = []
     all_tweets = []
     for i in public_tweets:
-        if i.user.screen_name not in users and i.user.screen_name != 'bitxt':
+        if i.user.screen_name not in users and i.user.screen_name != me:
             users.append(i.user.screen_name)
             text = i.text.lower()
             text = " ".join(list(set(text.split())))
