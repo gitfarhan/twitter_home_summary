@@ -19,13 +19,14 @@ auth.set_access_token(access_token, access_token_secret)
 def get_top_words(min_freq=1):
     api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
     me = api.me().screen_name
-    public_tweets = api.home_timeline(count=20)
+    public_tweets = api.home_timeline(count=100)
     users = []
     all_tweets = []
     for i in public_tweets:
         if i.user.screen_name not in users and i.user.screen_name != me:
             users.append(i.user.screen_name)
-            text = i.text.lower()
+            status = api.get_status(i.id, tweet_mode="extended")
+            text = status.full_text
             text = " ".join(list(set(text.split())))
             all_tweets.append(text)
     all_tweets = " ".join(all_tweets)
